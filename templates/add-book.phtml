@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add book</title>
+    <?php echo View::loadScript('style.css'); ?>
+</head>
+<body>
+    <a href="/">Go back</a>
+    <div id="add-book" class="form-block">
+        <form id="add-book-form" method="post" action="addBook">
+            <ul class="form-fields">
+                <li>
+                    <label>
+                        Author
+                        <?php if ($authors): ?>
+                            <select required name="author_id" id="author_id">
+                                <option value="" selected="selected">Choose author</option>
+                                <?php foreach($authors as $author): ?>
+                                    <option value="<?= $author['id'] ?>"><?= $author['fname'] . ' ' . $author['lname']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        <?php endif; ?>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Title
+                        <input type="text" name="title" size="35" required>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Location
+                        <input type="text" name="location" size="35" required>
+                    </label>
+                </li>
+                <li>
+                    <input type="submit" name="add-book-btn" value="Add">
+                </li>
+            </ul>
+        </form>
+    </div>
+</body>
+</html>

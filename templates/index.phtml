@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Library</title>
+    <?php echo View::loadScript('style.css'); ?>
+    <?php echo View::loadScript('script.js'); ?>
+</head>
+<body>
+    <div class="content">
+        <header class="add-buttons">
+            <h1>Library</h1>
+            <nav id="menu">
+                <ul>
+                    <li><a href="addAuthor">Add author</a></li>
+                    <?php if ($data['authors']): ?>
+                        <li><a href="addBook">Add book</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </header>
+        <div class="authors">
+            <h2 class="block-header">Authors</h2>
+            <?php if ($data['authors']): ?>
+                <table>
+                    <tr>
+                        <th>Author</th>
+                        <th>Book count</th>
+                        <th>Operations</th>
+                    </tr>
+                    <?php foreach($data['authors'] as $author): ?>
+                        <tr>
+                            <td><?= $author['fname'] . ' ' . $author['lname']; ?></td>
+                            <td><b><?= $author['bookCount']; ?></b></td>
+                            <td>
+                                <a href="editAuthor/<?= $author['id']; ?>"><img src="<?= ICON_DIR . 'edit.svg'; ?>" alt="edit" title="edit"></a>
+                                <a onclick="deleteItem(<?= $author['id']; ?>, 'Author');"><img src="<?= ICON_DIR . 'delete.svg'; ?>" alt="delete" title="delete"></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else: ?>
+                <h3>No records found.</h3>
+            <?php endif; ?>
+        </div>
+        <div class="books">
+            <h2 class="block-header">Books</h2>
+            <?php if ($data['books']): ?>
+                <ol>
+                    <?php foreach($data['books'] as $book): ?>
+                        <li>
+                            <?= $book['title'] . ' (<i>' . $book['fname'] . ' ' . $book['lname'] . '</i>)'; ?>
+                            <a href="editBook/<?= $book['id']; ?>"><img src="<?= ICON_DIR . 'edit.svg' ?>" alt="edit" title="edit"></a>
+                            <a onclick="deleteItem(<?= $book['id']; ?>, 'Book');"><img src="<?= ICON_DIR . 'delete.svg' ?>" alt="delete" title="delete"></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+            <?php else: ?>
+                <h3>No records found</h3>
+            <?php endif; ?>
+        </div>
+    </div>
+</body>
+</html>

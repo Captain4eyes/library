@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add author</title>
+    <?php echo View::loadScript('style.css'); ?>
+</head>
+<body>
+    <div id="edit-author" class="form-block">
+        <form id="edit-author-form" method="post">
+            <ul class="form-fields">
+                <li>
+                    <label>
+                        First name
+                        <input type="text" name="first_name" value="<?= $author['first_name']; ?>" required>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Last name
+                        <input type="text" name="last_name" value="<?= $author['last_name']; ?>" required>
+                    </label>
+                </li>
+                <li>
+                    <input type="submit" name="edit-author-btn" value="Save">
+                </li>
+            </ul>
+        </form>
+    </div>
+    <a href="/">Go back</a>
+</body>
+</html>

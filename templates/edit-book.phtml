@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add book</title>
+    <?php echo View::loadScript('style.css'); ?>
+</head>
+<body>
+    <div id="edit-book" class="form-block">
+        <form id="edit-book-form" method="post">
+            <ul class="form-fields">
+                <li>
+                    <label>
+                        Author
+                        <?php if ($authors): ?>
+                            <select name="author_id" id="author_id" required>
+                                <?php foreach($authors as $author): ?>
+                                    <?php if ($author['id'] == $book['author_id']): ?>
+                                        <option selected value="<?php echo $author['id']; ?>"><?php echo $author['fname'] . ' ' . $author['lname']; ?></option>
+                                    <?php else: ?>
+                                        <option value="<?php echo $author['id'] ?>"><?php echo $author['fname'] . ' ' . $author['lname']; ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </select>
+                        <?php endif; ?>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Title
+                        <input type="text" name="title" value="<?= $book['title']; ?>" size="35" required>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Location
+                        <input type="text" name="location" value="<?= $book['location']; ?>" size="35" required>
+                    </label>
+                </li>
+                <li>
+                    <input type="submit" name="edit-book-btn" value="Save">
+                </li>
+        </form>
+    </div>
+    <a href="/">Go back</a>
+</body>
+</html>
