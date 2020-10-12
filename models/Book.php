@@ -6,7 +6,7 @@
 class Book extends BaseModel
 {
     /** @var string name of the linked table */
-    const tableName =  __CLASS__ . 's';
+    const TABLE_NAME =  __CLASS__;
 
     /** @var integer id of the book author */
     private $author_id;
@@ -85,7 +85,7 @@ class Book extends BaseModel
     public function save()
     {
         Db::getConnection()->prepare(
-            'INSERT INTO ' . self::tableName . ' (title, location, author_id) 
+            'INSERT INTO ' . self::TABLE_NAME . ' (title, location, author_id) 
                       VALUES (:title, :location, :author_id)'
         )->execute([
             ':title'     => $this->title,
@@ -103,12 +103,13 @@ class Book extends BaseModel
     public function update($id, $book)
     {
         Db::getConnection()->prepare(
-            'UPDATE ' . self::tableName . ' SET title = :title, location = :location, author_id = :author_id 
-            WHERE id = ' . $id
+            'UPDATE ' . self::TABLE_NAME . ' SET title = :title, location = :location, author_id = :author_id 
+            WHERE id = :id'
         )->execute([
             ':title'     => $book->title,
             ':location'  => $book->location,
-            ':author_id' => $book->author_id
+            ':author_id' => $book->author_id,
+            ':id'        => $id
         ]);
     }
 
@@ -119,9 +120,11 @@ class Book extends BaseModel
      */
     public static function delete($id)
     {
-        Db::getConnection()->query(
-            'DELETE FROM ' . self::tableName . ' WHERE id = ' . $id
-        );
+        Db::getConnection()->prepare(
+            'DELETE FROM ' . self::TABLE_NAME . ' WHERE id = :id'
+        )->execute([
+            ':id' => $id
+        ]);
     }
 
     /**
@@ -132,7 +135,7 @@ class Book extends BaseModel
     {
         $result = Db::getConnection()->query(
             'SELECT b.id as id, b.title as title, a.first_name as fname, a.last_name as lname 
-                      FROM ' . self::tableName . ' as b, ' . Author::tableName . ' as a 
+                      FROM ' . self::TABLE_NAME . ' as b, ' . Author::TABLE_NAME . ' as a 
                       WHERE b.author_id = a.id
                       ORDER BY fname, lname'
         );

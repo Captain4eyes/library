@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Структура таблицы `Authors`
 --
 
-CREATE TABLE IF NOT EXISTS `Authors` (
+CREATE TABLE IF NOT EXISTS `Author` (
   `id` int(11) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `Authors` (
 -- Дамп данных таблицы `Authors`
 --
 
-INSERT INTO `Authors` (`id`, `first_name`, `last_name`) VALUES
+INSERT INTO `Author` (`id`, `first_name`, `last_name`) VALUES
 (1, 'Dan', 'Abnett'),
 (2, 'John', 'Tolkien'),
 (3, 'Joanne', 'Rowling');
@@ -47,7 +47,7 @@ INSERT INTO `Authors` (`id`, `first_name`, `last_name`) VALUES
 -- Структура таблицы `Books`
 --
 
-CREATE TABLE IF NOT EXISTS `Books` (
+CREATE TABLE IF NOT EXISTS `Book` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `location` varchar(100) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `Books` (
 -- Дамп данных таблицы `Books`
 --
 
-INSERT INTO `Books` (`id`, `title`, `location`, `author_id`) VALUES
+INSERT INTO `Book` (`id`, `title`, `location`, `author_id`) VALUES
 (1, 'Властелин Колец: Возвращение короля', '11 стеллаж, 3 ряд, 13 полка', 2),
 (2, 'Warhammer 40k: Инквизитор Эйзенхорн', '5 стеллаж, 1 ряд, 16 полка', 1),
 (3, 'Гарри Поттер и Философский камень', '4 стеллаж, 2 ряд, 9 полка', 3),
@@ -71,13 +71,13 @@ INSERT INTO `Books` (`id`, `title`, `location`, `author_id`) VALUES
 --
 -- Индексы таблицы `Authors`
 --
-ALTER TABLE `Authors`
+ALTER TABLE `Author`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `Books`
 --
-ALTER TABLE `Books`
+ALTER TABLE `Book`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `location` (`location`,`title`),
   ADD KEY `author_id` (`author_id`);
@@ -89,12 +89,12 @@ ALTER TABLE `Books`
 --
 -- AUTO_INCREMENT для таблицы `Authors`
 --
-ALTER TABLE `Authors`
+ALTER TABLE `Author`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT для таблицы `Books`
 --
-ALTER TABLE `Books`
+ALTER TABLE `Book`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -103,8 +103,8 @@ ALTER TABLE `Books`
 --
 -- Ограничения внешнего ключа таблицы `Books`
 --
-ALTER TABLE `Books`
-  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `Authors` (`id`);
+ALTER TABLE `Book`
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `Author` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

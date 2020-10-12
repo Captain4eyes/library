@@ -1,7 +1,7 @@
 <?php
 
 // Hiding errors from users
-ini_set('display_errors', 0);
+//ini_set('display_errors', 0);
 
 // App constants
 define('ROOT', dirname(__FILE__));

@@ -45,7 +45,7 @@ class LibraryController
             // TODO: Add exceptions.
             return 'Book was successfully updated!';
         } else {
-            $book = Book::getRowDataById(Book::tableName, $id);
+            $book = Book::getRowDataById(Book::TABLE_NAME, $id);
             $authors = Author::getAuthorsList();
             return View::render('edit-book', ['authors' => $authors, 'book' => $book]);
         }
@@ -87,7 +87,7 @@ class LibraryController
             // TODO: Add exceptions.
             return 'Book was successfully updated!';
         } else {
-            $author = Author::getRowDataById(Author::tableName, $id);
+            $author = Author::getRowDataById(Author::TABLE_NAME, $id);
             return View::render('edit-author', ['author' => $author]);
         }
     }

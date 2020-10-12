@@ -6,7 +6,7 @@
 class Author extends BaseModel
 {
     /** @var string name of the linked table */
-    const tableName =  __CLASS__ . 's';
+    const TABLE_NAME =  __CLASS__;
 
     /** @var string author first name */
     private $first_name;
@@ -64,7 +64,7 @@ class Author extends BaseModel
     public function save()
     {
         Db::getConnection()->prepare(
-            'INSERT INTO ' . self::tableName . ' (first_name, last_name) 
+            'INSERT INTO ' . self::TABLE_NAME . ' (first_name, last_name) 
                       VALUES (:first_name, :last_name)'
         )->execute([
             ':first_name' => $this->first_name,
@@ -81,11 +81,12 @@ class Author extends BaseModel
     public function update($id, $author)
     {
         Db::getConnection()->prepare(
-            'UPDATE ' . self::tableName . ' SET first_name = :first_name, last_name = :last_name 
-            WHERE id = ' . $id
+            'UPDATE ' . self::TABLE_NAME . ' SET first_name = :first_name, last_name = :last_name 
+            WHERE id = :id'
         )->execute([
             ':first_name' => $author->first_name,
             ':last_name'  => $author->last_name,
+            ':id'         => $id
         ]);
     }
 
@@ -96,12 +97,16 @@ class Author extends BaseModel
      */
     public static function delete($id)
     {
-        Db::getConnection()->query(
-            'DELETE FROM ' . Book::tableName . ' WHERE author_id = ' . $id
-        );
-        Db::getConnection()->query(
-            'DELETE FROM ' . self::tableName . ' WHERE id = ' . $id
-        );
+        Db::getConnection()->prepare(
+            'DELETE FROM ' . Book::TABLE_NAME . ' WHERE author_id = :id'
+        )->execute([
+            ':id' => $id
+        ]);
+        Db::getConnection()->prepare(
+            'DELETE FROM ' . self::TABLE_NAME . ' WHERE id = :id'
+        )->execute([
+            ':id' => $id
+        ]);
     }
 
     /**
@@ -112,7 +117,7 @@ class Author extends BaseModel
     {
         $result = Db::getConnection()->query(
             'SELECT id, first_name as fname, last_name as lname
-                      FROM ' . self::tableName . ' ORDER BY fname ASC, lname ASC'
+                      FROM ' . self::TABLE_NAME . ' ORDER BY fname ASC, lname ASC'
         );
         return $result->fetchAll();
     }
@@ -125,8 +130,8 @@ class Author extends BaseModel
     {
         $result = Db::getConnection()->query(
             'SELECT a.id as id, a.first_name as fname, a.last_name as lname, IFNULL(COUNT(b.id), 0) as bookCount
-                       FROM ' . self::tableName . ' as a 
-                       LEFT JOIN ' . Book::tableName . ' as b ON b.author_id = a.id
+                       FROM ' . self::TABLE_NAME . ' as a 
+                       LEFT JOIN ' . Book::TABLE_NAME . ' as b ON b.author_id = a.id
                        GROUP BY id, fname, lname
                        ORDER BY fname, lname'
         );
