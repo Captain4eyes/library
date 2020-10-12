@@ -49,7 +49,7 @@ class Router
 
                 $parameters = $segments;
 
-                $controllerFile = ROOT . DS .'controllers' . DS . $controllerName . '.php';
+                $controllerFile = ROOT . DIR_SEP .'controllers' . DIR_SEP . $controllerName . '.php';
 
                 if (file_exists($controllerFile)) {
                     include_once($controllerFile);

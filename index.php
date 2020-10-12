@@ -5,12 +5,12 @@
 
 // App constants
 define('ROOT', dirname(__FILE__));
-define('DS', DIRECTORY_SEPARATOR);
-define('CONF_DIR', ROOT . DS . 'config' . DS);
-define('TEMPLATE_DIR', ROOT . DS . 'templates' . DS);
-define('STYLES_DIR', DS . 'public' . DS . 'styles' . DS);
-define('ICON_DIR', DS . 'public' . DS . 'images' . DS . 'icons' . DS);
-define('JS_DIR', DS . 'public' . DS . 'js' . DS);
+define('DIR_SEP', DIRECTORY_SEPARATOR);
+define('CONF_DIR', ROOT . DIR_SEP . 'config' . DIR_SEP);
+define('TEMPLATE_DIR', ROOT . DIR_SEP . 'templates' . DIR_SEP);
+define('STYLES_DIR', DIR_SEP . 'public' . DIR_SEP . 'styles' . DIR_SEP);
+define('ICON_DIR', DIR_SEP . 'public' . DIR_SEP . 'images' . DIR_SEP . 'icons' . DIR_SEP);
+define('JS_DIR', DIR_SEP . 'public' . DIR_SEP . 'js' . DIR_SEP);
 
 // Autoload core files
 require_once 'autoload.php';
